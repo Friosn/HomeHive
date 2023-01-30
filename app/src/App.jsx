@@ -1,5 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 function App() {
@@ -7,7 +6,7 @@ function App() {
 
   return (
     <>
-      <h1>Hey there!</h1>
+      <h1 className="text-2xl">Hey there!</h1>
     </>
   );
 }
