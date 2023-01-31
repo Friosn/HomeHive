@@ -1,22 +1,51 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router";
 
 const NavBar = () => {
+  const location = useLocation();
+  /* console.log(location.pathname); */
+  const navigate = useNavigate();
+  function pathRoute(route) {
+    if (route === location.pathname) return true;
+  }
   return (
-    <div>
+    <div className="bg-white border-b shadow-sm sticky top-0">
       <header>
-        <nav class="flex justify-between items-center px-3 max-w-6xl mx-auto max-h-64">
+        <nav className="flex justify-between items-center px-3 max-w-6xl max-h-64">
           <div>
             <img
-              src="https://res.cloudinary.com/dfrmvbvdc/image/upload/v1675103792/Business%20Projects/HomeHive/svg-xml_base64_PHN2ZyBkYXRhLXYtMmNiNTdkYTA9IiIgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvM-removebg-preview-trimmy_fcpb2f.png"
+              src="https://res.cloudinary.com/dfrmvbvdc/image/upload/v1675175894/Business%20Projects/HomeHive/02-definitive_juggoi.png"
               alt="logo"
-              class=""
+              className="max-h-14 cursor-pointer"
+              onClick={() => navigate("/")}
             />
           </div>
           <div>
-            <ul class="flex space-x-10">
-              <li>Home</li>
-              <li>Offers</li>
-              <li>Sign in</li>
+            <ul className="flex space-x-10">
+              <li
+                className={`cursor-pointer py-3 text-sm font-semibold text-gray-500 border-b-[3px] border-b-transparent ${
+                  pathRoute("/") && "text-black border-b-orange-400"
+                }`}
+                onClick={() => navigate("/")}
+              >
+                Home
+              </li>
+              <li
+                className={`cursor-pointer py-3 text-sm font-semibold text-gray-500 border-b-[3px] border-b-transparent ${
+                  pathRoute("/offers") && "text-black border-b-orange-400"
+                }`}
+                onClick={() => navigate("/offers")}
+              >
+                Offers
+              </li>
+              <li
+                className={`cursor-pointer py-3 text-sm font-semibold text-gray-500 border-b-[3px] border-b-transparent ${
+                  pathRoute("/sign-in") && "text-black border-b-orange-400"
+                }`}
+                onClick={() => navigate("/sign-in")}
+              >
+                Sign in
+              </li>
             </ul>
           </div>
         </nav>
