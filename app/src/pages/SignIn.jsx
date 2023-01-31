@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import Auth from "../components/Auth";
+import GAuth from "../components/GAuth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +46,7 @@ const SignIn = () => {
                 id="password"
                 value={password}
                 onChange={onChange}
-                className="w-full ring-2 rounded-2xl"
+                className="w-full ring-2 rounded"
               />
               {showPass ? (
                 <AiFillEyeInvisible
@@ -89,7 +89,7 @@ const SignIn = () => {
           <div className="my-4 items-center flex before:border-t  before:flex-1 before:border-gray-400 after:border-t  after:flex-1 after:border-gray-400">
             <p className="text-center font-semibold mx-4">OR</p>
           </div>
-          <Auth />
+          <GAuth />
         </div>
       </div>
     </section>
