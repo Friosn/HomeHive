@@ -15,7 +15,7 @@ const NavBar = () => {
           <img
             src="https://res.cloudinary.com/dfrmvbvdc/image/upload/v1675175894/Business%20Projects/HomeHive/02-definitive_juggoi.png"
             alt="logo"
-            className="h-10 cursor-pointer"
+            className="h-8 cursor-pointer"
             onClick={() => navigate("/")}
           />
         </div>
