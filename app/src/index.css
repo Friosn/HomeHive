@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+    --primary: white;
+    --secondary: #1C1C1C;
+    --dark-honey: #6E5A3F;
+    --golden-yw: #F9D67B;
+    --bright-yw: #FCD12A;
+    --contrast: #3E3E3E;
+    --highlight-cheer: #FFF0BA;
+    --highlight-warm: #A69E7F;
+}
