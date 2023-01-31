@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import Auth from "../components/Auth";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +37,7 @@ const SignIn = () => {
                 value={email}
                 onChange={onChange}
                 placeholder="Email address"
-                className="w-full rounded px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 transition ease-in-out"
+                className="w-full rounded px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 transition ease-in-out mb-6"
               />
             </div>
             <div className="relative">
@@ -47,12 +49,47 @@ const SignIn = () => {
                 className="w-full ring-2 rounded-2xl"
               />
               {showPass ? (
-                <AiFillEyeInvisible className="absolute right-3 top-3 text-xl cursor-pointer" />
+                <AiFillEyeInvisible
+                  className="absolute right-3 top-3 text-xl cursor-pointer"
+                  onClick={() => setShowPass((previousState) => !previousState)}
+                />
               ) : (
-                <AiFillEye className="absolute right-3 top-3 text-xl cursor-pointer" />
+                <AiFillEye
+                  className="absolute right-3 top-3 text-xl cursor-pointer"
+                  onClick={() => setShowPass((previousState) => !previousState)}
+                />
               )}
             </div>
+            <div className="flex justify-between mt-3 whitespace-nowrap text-sm sm:text-lg">
+              <p className="mb-6">
+                <Link
+                  to={"/sign-up"}
+                  className="hover:text-[color:var(--bright-yw)] transition duration-200 ease-in-out" //Testing with variable theme (not definitive)
+                >
+                  Register here
+                </Link>
+              </p>
+              <p>
+                <Link
+                  to={"/forgot-password"}
+                  className="hover:text-[color:var(--highlight-warm)] transition duration-200 ease-in-out" //Testing with variable theme (not definitive)
+                >
+                  Forgot the password?
+                </Link>
+              </p>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-200 ease-in-out hover:shadow-xl active:bg-blue-800"
+            >
+              Sign in
+            </button>
           </form>
+
+          <div className="my-4 items-center flex before:border-t  before:flex-1 before:border-gray-400 after:border-t  after:flex-1 after:border-gray-400">
+            <p className="text-center font-semibold mx-4">OR</p>
+          </div>
+          <Auth />
         </div>
       </div>
     </section>
