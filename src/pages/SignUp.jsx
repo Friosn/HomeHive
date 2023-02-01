@@ -39,8 +39,11 @@ const SignUp = () => {
         displayName: name,
       });
       const user = userCredential.user;
-      console.log(user);
-      console.log(userCredential);
+
+      const formDataCopy = { ...formData }; //We copy the data saved in the form
+      delete formDataCopy.password; //We don't want to have the password visible on the firebase cloud in case hacking
+      /*    console.log(user);
+      console.log(userCredential); */
     } catch (error) {
       console.error(error);
     }
