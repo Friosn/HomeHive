@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import GAuth from "../components/GAuth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { db } from "../firebase";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -11,12 +17,34 @@ const SignUp = () => {
   });
   const [showPass, setShowPass] = useState(false);
   const { name, email, password } = formData;
-  function onChange(e) {
+
+  const onChange = (e) => {
     setFormData((previousState) => ({
       ...previousState,
       [e.target.id]: e.target.value,
     }));
-  }
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+      const user = userCredential.user;
+      console.log(user);
+      console.log(userCredential);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <section className="">
@@ -30,7 +58,7 @@ const SignUp = () => {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-10">
-          <form className="">
+          <form onSubmit={onSubmit}>
             <div>
               <input
                 type="text"
