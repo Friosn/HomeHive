@@ -10,8 +10,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <Router>

@@ -8,6 +8,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { db } from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -17,15 +19,16 @@ const SignUp = () => {
   });
   const [showPass, setShowPass] = useState(false);
   const { name, email, password } = formData;
+  const navigate = useNavigate();
 
-  const onChange = (e) => {
+  function onChange(e) {
     setFormData((previousState) => ({
       ...previousState,
       [e.target.id]: e.target.value,
     }));
-  };
+  }
 
-  const onSubmit = async (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
 
     try {
@@ -40,14 +43,18 @@ const SignUp = () => {
       });
       const user = userCredential.user;
 
-      const formDataCopy = { ...formData }; //We copy the data saved in the form
+      const formDataCopy = { ...formData }; //We copy the data saved in the form (to delete the pass once we add the users to the firestore database)
       delete formDataCopy.password; //We don't want to have the password visible on the firebase cloud in case hacking
-      /*    console.log(user);
-      console.log(userCredential); */
+      formDataCopy.timestamp = serverTimestamp(); //Save the time based on your server; we want to define the time that the user is registeres
+      // ⬇️We save it into the database (setDoc), this gets (doc()) and doc gets 3 things; first the database/s (db), then the collection where we want to save it (db, "users") AND the id (db, "users", user.uid); at last we add the thing we want to save the info from , fromDataCopy
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+      navigate("/");
+      console.log(user);
+      console.log(userCredential);
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   return (
     <section className="">
