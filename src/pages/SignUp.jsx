@@ -10,6 +10,7 @@ import {
 import { db } from "../firebase";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -49,10 +50,12 @@ const SignUp = () => {
       // ⬇️We save it into the database (setDoc), this gets (doc()) and doc gets 3 things; first the database/s (db), then the collection where we want to save it (db, "users") AND the id (db, "users", user.uid); at last we add the thing we want to save the info from , fromDataCopy
       await setDoc(doc(db, "users", user.uid), formDataCopy);
       navigate("/");
-      console.log(user);
-      console.log(userCredential);
+      /* console.log(user);
+      console.log(userCredential); */
+      toast.success("Sign up successful!");
     } catch (error) {
-      console.error(error);
+      toast.error("Something went wrong with the registration");
+      //TODO: Add different toast errors depending on the failing thing of the signUp
     }
   }
 
