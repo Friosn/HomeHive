@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import GAuth from "../components/GAuth";
+import { auth, signInWithEmailAndPassword } from "firebase/auth";
+import { Toast } from "react-toastify";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
