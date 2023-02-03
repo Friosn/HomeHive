@@ -13,12 +13,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const [showPass, setShowPass] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [showPass, setShowPass] = useState(false);
+
   const { name, email, password } = formData;
   const navigate = useNavigate();
 
@@ -136,12 +137,11 @@ const SignUp = () => {
             >
               Sign up
             </button>
+            <div className="my-4 items-center flex before:border-t  before:flex-1 before:border-gray-400 after:border-t  after:flex-1 after:border-gray-400">
+              <p className="text-center font-semibold mx-4">OR</p>
+            </div>
+            <GAuth />
           </form>
-
-          <div className="my-4 items-center flex before:border-t  before:flex-1 before:border-gray-400 after:border-t  after:flex-1 after:border-gray-400">
-            <p className="text-center font-semibold mx-4">OR</p>
-          </div>
-          <GAuth />
         </div>
       </div>
     </section>
