@@ -1,6 +1,8 @@
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import GAuth from "../components/GAuth";
 
 const ForgotPassword = () => {
@@ -8,6 +10,17 @@ const ForgotPassword = () => {
 
   function onChange(e) {
     setEmail(e.target.value);
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Email successfully sent");
+    } catch (error) {
+      toast.error("We could not find the email address");
+    }
   }
 
   return (
@@ -22,7 +35,7 @@ const ForgotPassword = () => {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-10">
-          <form className="">
+          <form onSubmit={onSubmit}>
             <div>
               <input
                 type="email"
