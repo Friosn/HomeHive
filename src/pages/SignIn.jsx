@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import GAuth from "../components/GAuth";
-import { auth, signInWithEmailAndPassword } from "firebase/auth";
-import { Toast } from "react-toastify";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const [showPass, setShowPass] = useState(false);
   const { email, password } = formData;
+  const navigate = useNavigate();
   function onChange(e) {
     setFormData((previousState) => ({
       ...previousState,
@@ -19,8 +21,25 @@ const SignIn = () => {
     }));
   }
 
+  async function onSubmit(e) {
+    e.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      if (userCredentials.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Wrong user credentials");
+    }
+  }
+
   return (
-    <section className="">
+    <section>
       <h1 className="text-3xl text-center mt-6 font-bold">Sign In</h1>
       <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto">
         <div className="md:w-[67%] lg:w-[50%] mb-12 md:mb-6">
@@ -31,7 +50,7 @@ const SignIn = () => {
           />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-10">
-          <form className="">
+          <form onSubmit={onSubmit}>
             <div>
               <input
                 type="email"
