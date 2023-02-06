@@ -14,8 +14,11 @@ const GAuth = () => {
     try {
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider); //This is the FIRST thing to do, signing up with the classic googlePopUp; for that we need getAuth and GoogleAuthProvider from firebase/auth
-      const user = result.user; // SECONDly we get the user, which is coming as a promise result from the signInWithPopup
+      //This is the FIRST thing to do, signing up with the classic googlePopUp;
+      //⬇️ for that we need getAuth and GoogleAuthProvider from firebase/auth
+      const result = await signInWithPopup(auth, provider);
+      //⬇️ SECONDly we get the user, which is coming as a promise result from the signInWithPopup
+      const user = result.user;
 
       //we gotta check if the user does already exist!
       const docRef = doc(db, "users", user.uid); //we need to compare the uid of the user with the uid's of the collection in firebase, so we do this reference
