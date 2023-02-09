@@ -44,11 +44,15 @@ const SignUp = () => {
         displayName: name,
       });
       const user = userCredential.user;
-
-      const formDataCopy = { ...formData }; //We copy the data saved in the form (to delete the pass once we add the users to the firestore database)
-      delete formDataCopy.password; //We don't want to have the password visible on the firebase cloud in case hacking
-      formDataCopy.timestamp = serverTimestamp(); //Save the time based on your server; we want to define the time that the user is registeres
-      // ⬇️We save it into the database (setDoc), this gets (doc()) and doc gets 3 things; first the database/s (db), then the collection where we want to save it (db, "users") AND the id (db, "users", user.uid); at last we add the thing we want to save the info from , fromDataCopy
+      //⬇️We copy the data saved in the form (to delete the pass once we add the users to the firestore database)
+      const formDataCopy = { ...formData };
+      //⬇️We don't want to have the password visible on the firebase cloud in case hacking
+      delete formDataCopy.password;
+      //⬇️Save the time based on your server; we want to define the time that the user is registered
+      formDataCopy.timestamp = serverTimestamp();
+      //⬇️We save it into the database (setDoc), this gets (doc()) and doc gets 3 things; first the database/s (db),
+      // then the collection where we want to save it (db, "users") AND the id (db, "users", user.uid);
+      // at last we add the thing we want to save the info from , fromDataCopy
       await setDoc(doc(db, "users", user.uid), formDataCopy);
       navigate("/");
       /* console.log(user);
