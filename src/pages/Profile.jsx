@@ -1,13 +1,19 @@
 import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 const Profile = () => {
   const auth = getAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
   });
 
+  const logOut = () => {
+    auth.signOut();
+    navigate("/sign-in");
+  };
   const { name, email } = formData;
   return (
     <>
@@ -36,7 +42,10 @@ const Profile = () => {
               <p className="text-blue-600 flex items-center hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer">
                 Edit your name
               </p>
-              <p className="text-red-600 flex items-center hover:text-red-800 transition duration-200 ease-in-out cursor-pointer">
+              <p
+                onClick={logOut}
+                className="text-red-600 flex items-center hover:text-red-800 transition duration-200 ease-in-out cursor-pointer"
+              >
                 Sign out
               </p>
             </div>

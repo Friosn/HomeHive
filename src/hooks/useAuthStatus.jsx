@@ -1,7 +1,7 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 
-const useAuthStatus = () => {
+export const useAuthStatus = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true); //to check the status
 
@@ -16,5 +16,3 @@ const useAuthStatus = () => {
   }, []);
   return { loggedIn, loading };
 };
-
-export default useAuthStatus;
