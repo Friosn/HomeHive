@@ -1,9 +1,11 @@
+import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 
 const Profile = () => {
+  const auth = getAuth();
   const [formData, setFormData] = useState({
-    name: "Fran",
-    email: "fran@gmail.com",
+    name: auth.currentUser.displayName,
+    email: auth.currentUser.email,
   });
 
   const { name, email } = formData;
@@ -19,7 +21,7 @@ const Profile = () => {
               id="profileName"
               value={name}
               disabled
-              className=" mb-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+              className=" mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
             />
             {/* Email Input */}
             <input
@@ -27,8 +29,17 @@ const Profile = () => {
               id="profileName"
               value={email}
               disabled
-              className=" mb-4 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+              className=" mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
             />
+
+            <div className="flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6">
+              <p className="text-blue-600 flex items-center hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer">
+                Edit your name
+              </p>
+              <p className="text-red-600 flex items-center hover:text-red-800 transition duration-200 ease-in-out cursor-pointer">
+                Sign out
+              </p>
+            </div>
           </form>
         </div>
       </section>
