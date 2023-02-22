@@ -1,6 +1,7 @@
-import { getAuth } from "firebase/auth";
+import { getAuth, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const auth = getAuth();
@@ -23,6 +24,19 @@ const Profile = () => {
       [e.target.id]: e.target.value,
     }));
   }
+
+  async function onSubmit() {
+    try {
+      if (auth.currentUser.displayName !== name) {
+        //here we update the name in the firebase auth
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+        });
+      }
+    } catch (error) {
+      toast.error("Could not save the changes on the profile");
+    }
+  }
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -36,7 +50,9 @@ const Profile = () => {
               value={name}
               disabled={!editProfile}
               onChange={onChange}
-              className=" mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out"
+              className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out ${
+                editProfile && "bg-red-100 focus:bg-red-200"
+              }`}
             />
             {/* Email Input */}
             <input
