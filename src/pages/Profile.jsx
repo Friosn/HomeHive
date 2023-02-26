@@ -2,6 +2,8 @@ import { getAuth, updateProfile } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const Profile = () => {
   const auth = getAuth();
@@ -18,12 +20,12 @@ const Profile = () => {
     navigate("/sign-in");
   };
 
-  function onChange(e) {
+  const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
-  }
+  };
 
   async function onSubmit() {
     try {
@@ -32,7 +34,14 @@ const Profile = () => {
         await updateProfile(auth.currentUser, {
           displayName: name,
         });
+        //NOW we need to update the name in the firestore
+
+        const docRef = doc(db, "users", auth.currentUser.uid);
+        await updateDoc(docRef, {
+          name: name,
+        });
       }
+      toast.success("Profile successfully updated");
     } catch (error) {
       toast.error("Could not save the changes on the profile");
     }
