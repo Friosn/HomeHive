@@ -1,10 +1,24 @@
-import React from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 const NavBar = () => {
+  const [pageState, setPageState] = useState("Sign in");
   const location = useLocation();
   /* console.log(location.pathname); */
   const navigate = useNavigate();
+
+  //we'll get the auth to handle when we are authenticated in the app or we need to sign in (for the dynamism of the app)
+  const auth = getAuth();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setPageState("Profile");
+      } else {
+        setPageState("Sign in");
+      }
+    });
+  }, [auth]);
   function pathRoute(route) {
     if (route === location.pathname) return true;
   }
@@ -23,7 +37,7 @@ const NavBar = () => {
           <ul className="flex space-x-10">
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-500 border-b-[3px] border-b-transparent ${
-                pathRoute("/") && "text-black border-b-orange-400"
+                pathRoute("/") && "text-black border-b-orange-500"
               }`}
               onClick={() => navigate("/")}
             >
@@ -31,7 +45,7 @@ const NavBar = () => {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-500 border-b-[3px] border-b-transparent ${
-                pathRoute("/offers") && "text-black border-b-orange-400"
+                pathRoute("/offers") && "text-black border-b-orange-500"
               }`}
               onClick={() => navigate("/offers")}
             >
@@ -39,11 +53,12 @@ const NavBar = () => {
             </li>
             <li
               className={`cursor-pointer py-3 text-sm font-semibold text-gray-500 border-b-[3px] border-b-transparent ${
-                pathRoute("/sign-in") && "text-black border-b-orange-400"
+                (pathRoute("/sign-in") || pathRoute("/profile")) &&
+                "text-black border-b-orange-500"
               }`}
-              onClick={() => navigate("/sign-in")}
+              onClick={() => navigate("/profile")}
             >
-              Sign in
+              {pageState}
             </li>
           </ul>
         </div>
