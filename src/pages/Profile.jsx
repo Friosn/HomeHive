@@ -46,7 +46,7 @@ const Profile = () => {
             {/* Name Input */}
             <input
               type="text"
-              id="profileName"
+              id="name"
               value={name}
               disabled={!editProfile}
               onChange={onChange}
