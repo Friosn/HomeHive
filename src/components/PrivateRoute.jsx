@@ -5,13 +5,13 @@ import SpinnerCSS from "./SpinnerCSS";
 import SpinnerSVG from "./SpinnerSVG";
 
 const PrivateRoute = () => {
-  const { loggedIn, loadingChecking } = useAuthStatus();
+  const { loggedIn, loading } = useAuthStatus();
 
-  if (loadingChecking) {
-    return <SpinnerSVG />;
+  if (loading) {
+    return <SpinnerCSS />;
   }
 
-  return loggedIn ? <Outlet /> : <Navigate to={"/profile"} />;
+  return loggedIn ? <Outlet /> : <Navigate to={"/sign.in"} />;
 };
 
 export default PrivateRoute;

@@ -5,7 +5,7 @@ const SpinnerSVG = () => {
   return (
     <div>
       <div>
-        <img src={spinnerSquare} alt="Loading..." className=" h-24" />
+        <img src={spinner} alt="Loading..." className=" h-24" />
       </div>
     </div>
   );
