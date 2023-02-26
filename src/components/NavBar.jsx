@@ -23,7 +23,7 @@ const NavBar = () => {
     if (route === location.pathname) return true;
   }
   return (
-    <header className="bg-white border-b shadow-sm sticky top-0">
+    <header className="bg-white border-b shadow-sm sticky top-0 z-40">
       <nav className="flex justify-between items-center px-3 max-w-6xl max-h-64">
         <div>
           <img

@@ -1,11 +1,11 @@
 import React from "react";
-import spinner from "../assets/svg/spinner.svg";
+
 import spinnerSquare from "../assets/svg/spinnerSquare.svg";
 const SpinnerSVG = () => {
   return (
-    <div>
+    <div className="bg-black bg-opacity-50 flex items-center jsutify-center fixed left-0 right-0 bottom-0 z-50">
       <div>
-        <img src={spinner} alt="Loading..." className=" h-24" />
+        <img src={spinnerSquare} alt="Loading..." className=" h-24" />
       </div>
     </div>
   );
