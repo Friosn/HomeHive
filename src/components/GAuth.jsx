@@ -32,7 +32,7 @@ const GAuth = () => {
         });
       }
       toast.success("Successfully logged in!");
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       toast.error("There was an error with the Google Authentication");
     }
